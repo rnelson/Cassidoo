@@ -31,18 +31,21 @@ public class Tests20240805
    Starting test execution, please wait...
    A total of 1 test files matched the specified pattern.
    [xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.4.5+1caef2f33e (64-bit .NET 8.0.4)
-   [xUnit.net 00:00:00.24]   Discovering: Tests
-   [xUnit.net 00:00:00.26]   Discovered:  Tests
-   [xUnit.net 00:00:00.26]   Starting:    Tests
-   [xUnit.net 00:00:00.29]   Finished:    Tests
-     Passed Tests.Tests20240805.TestSquares(n: 100, expected: 338350) [2 ms]
+   [xUnit.net 00:00:00.28]   Discovering: Tests
+   [xUnit.net 00:00:00.30]   Discovered:  Tests
+   [xUnit.net 00:00:00.30]   Starting:    Tests
+   [xUnit.net 00:00:00.33]   Finished:    Tests
+     Passed Tests.Tests20240805.TestSquaresThrowsArgumentOutOfRangeException(n: -25) [1 ms]
+     Passed Tests.Tests20240805.TestSquaresThrowsArgumentOutOfRangeException(n: -1) [< 1 ms]
+     Passed Tests.Tests20240805.TestSquaresThrowsArgumentOutOfRangeException(n: -100) [< 1 ms]
+     Passed Tests.Tests20240805.TestSquares(n: 100, expected: 338350) [1 ms]
      Passed Tests.Tests20240805.TestSquares(n: 10, expected: 385) [< 1 ms]
      Passed Tests.Tests20240805.TestSquares(n: 25, expected: 5525) [< 1 ms]
      Passed Tests.Tests20240805.TestSquares(n: 5, expected: 55) [< 1 ms]
    
    Test Run Successful.
-   Total tests: 4
-        Passed: 4
-    Total time: 0.6888 Seconds
+   Total tests: 7
+        Passed: 7
+    Total time: 0.7704 Seconds
    rnelson@splinter Cassidoo %
  */
