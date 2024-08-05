@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using Cassidoo.Extensions;
 
 namespace Cassidoo;
 
@@ -11,7 +12,7 @@ public static class Cassidoo20210510_SameDigits
         var n3 = n * n * n;
         var nSet = GetDigits(n);
         var n3Set = GetDigits(n3);
-        var eq = EqualHashSets(nSet, n3Set);
+        var eq = nSet.ContainSameDigits(n3Set);
 
         return eq;
     }
@@ -24,12 +25,4 @@ public static class Cassidoo20210510_SameDigits
         .OrderBy(c => c)
         .ToArray()
     ];
-
-    private static bool EqualHashSets<T>(HashSet<T> one, HashSet<T> two)
-    {
-        if (one.Count != two.Count)
-            return false;
-	
-        return one.Intersect(two).Count() == one.Count;
-    }
 }
