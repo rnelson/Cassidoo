@@ -1,5 +1,7 @@
 # Cassidoo Solutions
 
+![Build status](https://github.com/rnelson/Cassidoo/actions/workflows/dotnet.yml/badge.svg) ![GitHub License](https://img.shields.io/github/license/rnelson/Cassidoo)
+
 ## About
 I wanted to simplify participating in the weekly interview questions by having a single solution that's all set up for me to work from. This is that solution.
 
