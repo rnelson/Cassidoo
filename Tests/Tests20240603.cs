@@ -12,7 +12,7 @@ public class Tests20240603
     [InlineData(new[] { 11, 13, 15 }, new int[] {})]
     public void TestSquares(int[] numbers, int[] expected)
     {
-        var actual = Cassidoo20240603_OnlyEvens.onlyEvens(numbers);
+        var actual = Cassidoo20240603_OnlyEvens.OnlyEvens(numbers);
         Assert.Equal(expected, actual);
     }
 }

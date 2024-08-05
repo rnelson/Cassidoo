@@ -10,15 +10,15 @@ public class Tests20240701
         var stand = new Cassidoo20240701_FruitStand();
 
         // Add fruits to the stand
-        stand.addFruit("apple", 10, 0.5);
-        stand.addFruit("banana", 5, 0.2);
-        stand.addFruit("cherry", 20, 0.1);
+        stand.AddFruit("apple", 10, 0.5);
+        stand.AddFruit("banana", 5, 0.2);
+        stand.AddFruit("cherry", 20, 0.1);
 
         // Update the quantity of an existing fruit
-        stand.updateQuantity("banana", 10);
+        stand.UpdateQuantity("banana", 10);
 
         // Calculate the total value of all fruits in the stand
-        Assert.Equal(9, stand.totalValue());
+        Assert.Equal(9, stand.GetTotalValue());
     }
 }
 

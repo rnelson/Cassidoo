@@ -6,7 +6,7 @@ namespace Cassidoo;
 public static class Cassidoo20240603_OnlyEvens
 {
     // Tests: https://github.com/rnelson/Cassidoo/blob/main/Tests/Tests20240603.cs
-    public static IEnumerable<int> onlyEvens(IEnumerable<int> list) => list
+    public static IEnumerable<int> OnlyEvens(IEnumerable<int> list) => list
         .Where(i => i % 2 == 0)
         .OrderBy(i => i);
 }

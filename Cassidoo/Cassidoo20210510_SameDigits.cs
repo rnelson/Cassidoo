@@ -6,17 +6,17 @@ namespace Cassidoo;
 public static class Cassidoo20210510_SameDigits
 {
     // Tests: https://github.com/rnelson/Cassidoo/blob/main/Tests/Tests20210510.cs
-    public static bool sameDigits(long n)
+    public static bool SameDigits(long n)
     {
         var n3 = n * n * n;
         var nSet = GetDigits(n);
         var n3Set = GetDigits(n3);
-        var eq = Eq(nSet, n3Set);
+        var eq = EqualHashSets(nSet, n3Set);
 
         return eq;
     }
     
-    private static HashSet<char>? GetDigits(long n) =>
+    private static HashSet<char> GetDigits(long n) =>
     [..n
         .ToString()
         .ToCharArray()
@@ -25,13 +25,11 @@ public static class Cassidoo20210510_SameDigits
         .ToArray()
     ];
 
-    private static bool Eq<T>(HashSet<T>? one, HashSet<T>? two)
+    private static bool EqualHashSets<T>(HashSet<T> one, HashSet<T> two)
     {
-        if (one is null && two != null || one != null && two is null) return false;
-        if (one!.Count != two!.Count) return false;
+        if (one.Count != two.Count)
+            return false;
 	
         return one.Intersect(two).Count() == one.Count;
     }
-
-    
 }

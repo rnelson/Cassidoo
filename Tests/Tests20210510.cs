@@ -11,7 +11,7 @@ public class Tests20210510
     [InlineData(251895, false)]
     public void TestSameDigits(int n, bool expected)
     {
-        var actual = Cassidoo20210510_SameDigits.sameDigits(n);
+        var actual = Cassidoo20210510_SameDigits.SameDigits(n);
         Assert.Equal(expected, actual);
     }
 }
