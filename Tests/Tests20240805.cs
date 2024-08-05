@@ -14,6 +14,15 @@ public class Tests20240805
         var actual = Cassidoo20240805_SumOfSquares.SumSquares(n);
         Assert.Equal(expected, actual);
     }
+    
+    [Theory]
+    [InlineData(-1)]
+    [InlineData(-25)]
+    [InlineData(-100)]
+    public void TestSquaresThrowsArgumentOutOfRangeException(int n)
+    {
+        Assert.Throws<ArgumentOutOfRangeException>(() => Cassidoo20240805_SumOfSquares.SumSquares(n));
+    }
 }
 
 /*
