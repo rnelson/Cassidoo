@@ -12,6 +12,7 @@ public class Cassidoo20240819_CalculateExecutionTimes
         let end = events.First(e => e.Name.Equals(n) && "end".Equals(e.Event)).Time
         select new Tuple<string, int>(n, end - start)
     );
-
-    public record Cassidoo20240819_Event(string Name, int Time, string Event);
 }
+
+[SuppressMessage("ReSharper", "InconsistentNaming")]
+public record Cassidoo20240819_Event(string Name, int Time, string Event);

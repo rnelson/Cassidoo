@@ -7,7 +7,7 @@ public class Tests20240819
     [Fact]
     public void Test()
     {
-        var events = new List<Cassidoo20240819_CalculateExecutionTimes.Cassidoo20240819_Event>
+        var events = new List<Cassidoo20240819_Event>
         {
             new("main", 0, "start"),
             new("subTask1", 5, "start"),
@@ -55,4 +55,4 @@ public class Tests20240819
         Passed: 1
     Total time: 2.1005 Seconds
    rnelson@splinter Cassidoo %
- */
+*/
