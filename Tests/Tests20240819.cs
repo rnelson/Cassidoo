@@ -24,7 +24,9 @@ public class Tests20240819
             new Tuple<string, int>("subTask2", 5),
         };
 
-        var actual = Cassidoo20240819_CalculateExecutionTimes.CalculateExecutionTimes(events);
+        var actual = Cassidoo20240819_CalculateExecutionTimes
+            .CalculateExecutionTimes(events)
+            .ToList();
 
         Assert.Equal(expected.Length, actual.Count);
         foreach (var expectedTuple in expected)
