@@ -15,20 +15,20 @@ public class Tests20241118
 }
 
 /*
-   rnelson@splinter Cassidoo % ./test.sh Tests20241118
-   Test run for /Users/rnelson/dev/Cassidoo/Tests/bin/Debug/net8.0/Tests.dll (.NETCoreApp,Version=v8.0)
-   Starting test execution, please wait...
-   A total of 1 test files matched the specified pattern.
-   [xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.4.5+1caef2f33e (64-bit .NET 8.0.4)
-   [xUnit.net 00:00:01.51]   Discovering: Tests
-   [xUnit.net 00:00:01.54]   Discovered:  Tests
-   [xUnit.net 00:00:01.54]   Starting:    Tests
-   [xUnit.net 00:00:01.57]   Finished:    Tests
-     Passed Tests.Tests20240819.Test [3 ms]
+    rnelson@krang:~/dev/cassidoo $ ./test.sh Tests20241118
+    Restore succeeded with 2 warning(s) in 5.5s
+        Determining projects to restore...
+        All projects are up-to-date for restore.
+      Cassidoo succeeded (2.1s) → Cassidoo/bin/Debug/net9.0/Cassidoo.dll
+      Tests succeeded with 2 warning(s) (0.9s) → Tests/bin/Debug/net9.0/Tests.dll
+    [xUnit.net 00:00:00.02] xUnit.net VSTest Adapter v2.4.5+1caef2f33e (64-bit .NET 9.0.0)
+    [xUnit.net 00:00:03.29]   Discovering: Tests
+    [xUnit.net 00:00:03.66]   Discovered:  Tests
+    [xUnit.net 00:00:03.72]   Starting:    Tests
+    [xUnit.net 00:00:04.35]   Finished:    Tests
+      Tests test succeeded (11.0s)
 
-   Test Run Successful.
-   Total tests: 1
-        Passed: 1
-    Total time: 2.1005 Seconds
-   rnelson@splinter Cassidoo %
+    Test summary: total: 2, failed: 0, succeeded: 2, skipped: 0, duration: 10.9s
+    Build succeeded with 4 warning(s) in 22.6s
+    rnelson@krang:~/dev/cassidoo $
 */
