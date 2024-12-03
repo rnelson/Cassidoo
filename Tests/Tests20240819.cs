@@ -14,14 +14,14 @@ public class Tests20240819
             new("subTask1", 10, "end"),
             new("subTask2", 15, "start"),
             new("subTask2", 20, "end"),
-            new("main", 25, "end"),
+            new("main", 25, "end")
         };
         
         var expected = new[]
         {
             new Tuple<string, int>("main", 25),
             new Tuple<string, int>("subTask1", 5),
-            new Tuple<string, int>("subTask2", 5),
+            new Tuple<string, int>("subTask2", 5)
         };
 
         var actual = Cassidoo20240819_CalculateExecutionTimes
