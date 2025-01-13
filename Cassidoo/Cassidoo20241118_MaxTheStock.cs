@@ -17,7 +17,7 @@ public class Cassidoo20241118_MaxTheStock
         
         for (var i = 0; i < data.Length; i++)
         for (var j = i + 1; j < data.Length; j++)
-            combinations.Add(new Tuple<int, int, int>(data[i], data[j], data[j] - data[i]));
+            combinations.Add(new(data[i], data[j], data[j] - data[i]));
         
         return combinations;
     }

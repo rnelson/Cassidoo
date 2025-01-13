@@ -10,12 +10,12 @@ public class Cassidoo20240701_FruitStand
 
     public void AddFruit(string fruit, int quantity, double cost)
     {
-        _d.Add(fruit, new Tuple<int, double>(quantity, cost));
+        _d.Add(fruit, new(quantity, cost));
     }
 
     public void UpdateQuantity(string fruit, int quantity)
     {
-        _d[fruit] = new Tuple<int, double>(quantity, _d[fruit].Item2);
+        _d[fruit] = new(quantity, _d[fruit].Item2);
     }
 
     public double GetTotalValue() =>
