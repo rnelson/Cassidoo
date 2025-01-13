@@ -1,5 +1,16 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
+/*
+ * Extra credit is to do the variants, but I chose another route. I've been meaning to really learn the
+ * NATO alphabet for years. I switch between words used in different alphabets or just making up my own
+ * every time I have to use phonetics. Also I'm on year, uh, 4 of wanting to get an amateur radio license
+ * and even though Morse code is no longer a requirement in the US it'd be good to know.
+ *
+ * So instead of making up another alphabet, I added Morse code (and also pronunciation helpers).
+ *
+ * Check out the unit test! https://github.com/rnelson/Cassidoo/blob/main/Tests/Tests20250113.cs
+ */
+
 namespace Cassidoo;
 
 [SuppressMessage("ReSharper", "InconsistentNaming")]

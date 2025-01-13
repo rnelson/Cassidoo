@@ -16,7 +16,7 @@ public class Tests20250113(ITestOutputHelper output)
         "Bravo Alfa Charlie Kilo Echo November Delta (space) (period) " +
         "November Echo Tango (space) Whiskey Oscar Romeo Kilo (exclamation point) (space) (semicolon)",
         true)]
-    public void Test(string message, string expectedPhonetic, bool useExtras)
+    public void TestNatoConversion(string message, string expectedPhonetic, bool useExtras)
     {
         var actual = Cassidoo20250113_PhunWithFonetics.Convert(message, useExtras);
         output.WriteLine(message);
@@ -27,6 +27,51 @@ public class Tests20250113(ITestOutputHelper output)
         output.WriteLine("");
         
         Assert.Equal(expectedPhonetic, actual.NatoTelephony);
+    }
+    
+    [Theory]
+    [InlineData("hello world", "\u2584 \u2584 \u2584 \u2584     \u2584     \u2584 \u2584\u2584\u2584 \u2584 \u2584     \u2584 \u2584\u2584\u2584 \u2584 \u2584     \u2584\u2584\u2584 \u2584\u2584\u2584 \u2584\u2584\u2584     \u2584 \u2584\u2584\u2584 \u2584\u2584\u2584     \u2584\u2584\u2584 \u2584\u2584\u2584 \u2584\u2584\u2584     \u2584 \u2584\u2584\u2584 \u2584     \u2584 \u2584\u2584\u2584 \u2584 \u2584     \u2584\u2584\u2584 \u2584 \u2584")]
+    [InlineData("3spooky5me", "\u2584 \u2584 \u2584 \u2584\u2584\u2584 \u2584\u2584\u2584     \u2584 \u2584 \u2584     \u2584 \u2584\u2584\u2584 \u2584\u2584\u2584 \u2584     \u2584\u2584\u2584 \u2584\u2584\u2584 \u2584\u2584\u2584     \u2584\u2584\u2584 \u2584\u2584\u2584 \u2584\u2584\u2584     \u2584\u2584\u2584 \u2584 \u2584\u2584\u2584     \u2584\u2584\u2584 \u2584 \u2584\u2584\u2584 \u2584\u2584\u2584     \u2584 \u2584 \u2584 \u2584 \u2584     \u2584\u2584\u2584 \u2584\u2584\u2584     \u2584")]
+    [InlineData("Super Mario Bros.", "\u2584 \u2584 \u2584     \u2584 \u2584 \u2584\u2584\u2584     \u2584 \u2584\u2584\u2584 \u2584\u2584\u2584 \u2584     \u2584     \u2584 \u2584\u2584\u2584 \u2584     \u2584\u2584\u2584 \u2584\u2584\u2584     \u2584 \u2584\u2584\u2584     \u2584 \u2584\u2584\u2584 \u2584     \u2584 \u2584     \u2584\u2584\u2584 \u2584\u2584\u2584 \u2584\u2584\u2584     \u2584\u2584\u2584 \u2584 \u2584 \u2584     \u2584 \u2584\u2584\u2584 \u2584     \u2584\u2584\u2584 \u2584\u2584\u2584 \u2584\u2584\u2584     \u2584 \u2584 \u2584")]
+    [InlineData("Ross Nelson", "\u2584 \u2584\u2584\u2584 \u2584     \u2584\u2584\u2584 \u2584\u2584\u2584 \u2584\u2584\u2584     \u2584 \u2584 \u2584     \u2584 \u2584 \u2584     \u2584\u2584\u2584 \u2584     \u2584     \u2584 \u2584\u2584\u2584 \u2584 \u2584     \u2584 \u2584 \u2584     \u2584\u2584\u2584 \u2584\u2584\u2584 \u2584\u2584\u2584     \u2584\u2584\u2584 \u2584")]
+    [InlineData("needs a job", "\u2584\u2584\u2584 \u2584     \u2584     \u2584     \u2584\u2584\u2584 \u2584 \u2584     \u2584 \u2584 \u2584     \u2584 \u2584\u2584\u2584     \u2584 \u2584\u2584\u2584 \u2584\u2584\u2584 \u2584\u2584\u2584     \u2584\u2584\u2584 \u2584\u2584\u2584 \u2584\u2584\u2584     \u2584\u2584\u2584 \u2584 \u2584 \u2584")]
+    [InlineData("looking for backend .NET work! ;)", 
+        "\u2584 \u2584\u2584\u2584 \u2584 \u2584     " +
+        "\u2584\u2584\u2584 \u2584\u2584\u2584 \u2584\u2584\u2584     " +
+        "\u2584\u2584\u2584 \u2584\u2584\u2584 \u2584\u2584\u2584     " +
+        "\u2584\u2584\u2584 \u2584 \u2584\u2584\u2584     " +
+        "\u2584 \u2584     " +
+        "\u2584\u2584\u2584 \u2584     " +
+        "\u2584\u2584\u2584 \u2584\u2584\u2584 \u2584     " +
+        "\u2584 \u2584 \u2584\u2584\u2584 \u2584     " +
+        "\u2584\u2584\u2584 \u2584\u2584\u2584 \u2584\u2584\u2584     " +
+        "\u2584 \u2584\u2584\u2584 \u2584     " +
+        "\u2584\u2584\u2584 \u2584 \u2584 \u2584     " +
+        "\u2584 \u2584\u2584\u2584     " +
+        "\u2584\u2584\u2584 \u2584 \u2584\u2584\u2584 \u2584     " +
+        "\u2584\u2584\u2584 \u2584 \u2584\u2584\u2584     " +
+        "\u2584     " +
+        "\u2584\u2584\u2584 \u2584     " +
+        "\u2584\u2584\u2584 \u2584 \u2584     " +
+        "\u2584\u2584\u2584 \u2584     " +
+        "\u2584     " +
+        "\u2584\u2584\u2584     " +
+        "\u2584 \u2584\u2584\u2584 \u2584\u2584\u2584     " +
+        "\u2584\u2584\u2584 \u2584\u2584\u2584 \u2584\u2584\u2584     " +
+        "\u2584 \u2584\u2584\u2584 \u2584     " +
+        "\u2584\u2584\u2584 \u2584 \u2584\u2584\u2584"
+        )]
+    public void TestMorseConversion(string message, string expectedCode)
+    {
+        var actual = Cassidoo20250113_PhunWithFonetics.Convert(message);
+        output.WriteLine(message);
+        output.WriteLine($"Expected:      {expectedCode}");
+        output.WriteLine($"Actual:        {actual.NatoTelephony}");
+        output.WriteLine($"Pronunciation: {actual.NatoPronunciation}");
+        output.WriteLine(actual.MorseCode);
+        output.WriteLine("");
+        
+        Assert.Equal(expectedCode, actual.MorseCode);
     }
 
 /*
