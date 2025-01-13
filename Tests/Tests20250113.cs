@@ -80,15 +80,15 @@ public class Tests20250113(ITestOutputHelper output)
         Determining projects to restore...
         All projects are up-to-date for restore.
       Cassidoo succeeded (0.2s) → Cassidoo/bin/Debug/net9.0/Cassidoo.dll
-      Tests succeeded (0.1s) → Tests/bin/Debug/net9.0/Tests.dll
+      Tests succeeded (0.0s) → Tests/bin/Debug/net9.0/Tests.dll
     [xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.8.2+699d445a1a (64-bit .NET 9.0.0)
     [xUnit.net 00:00:00.05]   Discovering: Tests
     [xUnit.net 00:00:00.10]   Discovered:  Tests
-    [xUnit.net 00:00:00.10]   Starting:    Tests
-    [xUnit.net 00:00:00.15]   Finished:    Tests
-      Tests test succeeded (0.9s)
+    [xUnit.net 00:00:00.11]   Starting:    Tests
+    [xUnit.net 00:00:00.18]   Finished:    Tests
+      Tests test succeeded (0.8s)
 
-    Test summary: total: 6, failed: 0, succeeded: 6, skipped: 0, duration: 0.9s
+    Test summary: total: 12, failed: 0, succeeded: 12, skipped: 0, duration: 0.8s
     Build succeeded in 1.8s
     [rnelson@roto cassidoo]$
 */
