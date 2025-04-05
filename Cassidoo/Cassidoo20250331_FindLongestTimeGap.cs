@@ -12,6 +12,7 @@ public static class Cassidoo20250331_FindLongestTimeGap
         ArgumentNullException.ThrowIfNull(times);
         
         var data = times.ToArray();
+        ArgumentOutOfRangeException.ThrowIfLessThan(data.Length, 1);
         if (data.Length == 1) return 0;
         
         // See the unit tests (link above) for the reason that
@@ -19,7 +20,7 @@ public static class Cassidoo20250331_FindLongestTimeGap
         return data
             .Select(TimeOnly.Parse)
             .Pair()
-            .Max(p => GetMinutes(p.Item2, p.Item1));
+            .Max(p => GetMinutes(p.Item1, p.Item2));
     }
     
     private static int GetMinutes(TimeOnly one, TimeOnly two) =>

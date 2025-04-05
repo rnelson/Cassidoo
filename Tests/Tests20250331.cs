@@ -23,6 +23,13 @@ public class Tests20250331
         
         Assert.Equal(expected, actual);
     }
+
+    [Fact]
+    public void TestExceptions()
+    {
+        Assert.Throws<ArgumentNullException>(() => Cassidoo20250331_FindLongestTimeGap.FindLongestTimeGap(null!));
+        Assert.Throws<ArgumentOutOfRangeException>(() => Cassidoo20250331_FindLongestTimeGap.FindLongestTimeGap(Array.Empty<string>()));
+    }
 }
 
 /*
