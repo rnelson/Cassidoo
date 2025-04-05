@@ -24,3 +24,22 @@ public class Tests20250331
         Assert.Equal(expected, actual);
     }
 }
+
+/*
+    rnelson@flux:~/dev/cassidoo $ ./test.sh Tests20250331
+    Restore complete (1.4s)
+        Determining projects to restore...
+        All projects are up-to-date for restore.
+      Cassidoo succeeded (0.4s) → Cassidoo/bin/Debug/net9.0/Cassidoo.dll
+      Tests succeeded (0.5s) → Tests/bin/Debug/net9.0/Tests.dll
+    [xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.8.2+699d445a1a (64-bit .NET 9.0.3)
+    [xUnit.net 00:00:00.08]   Discovering: Tests
+    [xUnit.net 00:00:00.14]   Discovered:  Tests
+    [xUnit.net 00:00:00.15]   Starting:    Tests
+    [xUnit.net 00:00:00.21]   Finished:    Tests
+      Tests test succeeded (1.2s)
+
+    Test summary: total: 4, failed: 0, succeeded: 4, skipped: 0, duration: 1.2s
+    Build succeeded in 4.1s
+    rnelson@flux:~/dev/cassidoo $
+*/
