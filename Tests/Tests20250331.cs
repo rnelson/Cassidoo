@@ -4,10 +4,18 @@ namespace Tests;
 
 public class Tests20250331
 {
+    /// <remarks>
+    /// Regarding the third sample, this is ambiguous. The problem states that you should
+    /// find the largest time between two consecutive timestamps, but it does not state if
+    /// consecutive is based on how we order timestamps (9a, 10:30a, 2p, 3p) or based on the
+    /// order they are presented (2p, 9a, 3p, 10:30a). Since "consecutive" relates to
+    /// ordering and there was no instruction to reorder the values, I am leaving them ordered
+    /// as presented, which makes the largest gap 360 minutes, not 210 minutes.
+    /// </remarks>
     [Theory]
     [InlineData(0, new[] {"12:00"})]
     [InlineData(120, new[] {"09:00", "11:00"})]
-    [InlineData(360, new[] {"14:00", "09:00", "15:00", "10:30"})] // 210?
+    [InlineData(360, new[] {"14:00", "09:00", "15:00", "10:30"})]
     [InlineData(240, new[] {"08:00", "10:00", "10:00", "14:00"})]
     public void Test(int expected, IEnumerable<string> times)
     {
