@@ -5,10 +5,14 @@ namespace Cassidoo;
 [SuppressMessage("ReSharper", "InconsistentNaming")]
 public static class Cassidoo20250407_GetLelandNumbers
 {
-    public static IEnumerable<long> GetLelandNumbers()
+    public static IEnumerable<ulong> GetLelandNumbers(ulong size)
     {
-        for (var x = 2L; x < long.MaxValue; x++)
-        for (var y = 2L; y < long.MaxValue; y++)
-            yield return (long)Math.Pow(x, y) + (long)Math.Pow(y, x);
+        var results = new List<ulong>();
+        
+        for (var x = 2UL; x <= size; x++)
+        for (var y = 2UL; y <= x; y++)
+            results.Add((ulong)Math.Pow(x, y) + (ulong)Math.Pow(y, x));
+
+        return results.Order().Take((int)size);
     }
 }
