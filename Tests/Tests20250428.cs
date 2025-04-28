@@ -3,7 +3,7 @@ using Xunit.Abstractions;
 
 namespace Tests;
 
-public class Tests20250428(ITestOutputHelper testOutputHelper)
+public class Tests20250428
 {
     [Theory]
     [InlineData(new[] {"a", "b", "b", "b", "c"}, new[] {"a", "b", "3", "c"})]
