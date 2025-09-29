@@ -1,4 +1,6 @@
-﻿namespace Cassidoo.Extensions;
+﻿using System.Numerics;
+
+namespace Cassidoo.Extensions;
 
 internal static class EnumerableExtensions
 {
@@ -73,5 +75,10 @@ internal static class EnumerableExtensions
                 }
             }
         }
+    }
+    
+    private static BigInteger Sum(this IEnumerable<BigInteger> source)
+    {
+        return source.Aggregate(BigInteger.Zero, (current, next) => current + next);
     }
 }
