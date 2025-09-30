@@ -8,9 +8,8 @@ public class Cassidoo20241202_ReindeerNames
 {
     public static IEnumerable<string?> RollCall(params IEnumerable<string> input) =>
         input
-                ; /*
             .ToArray()
             .Select(i => new string(i.ToCharArray().Reverse().ToArray()))
             .Order()
-            .ToArray(); */
+            .ToArray();
 }
