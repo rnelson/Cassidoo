@@ -32,7 +32,6 @@ public static class Cassidoo20251020_SplitByWidths
             result.Add(remaining.Substring(0, currentWidth));
             remaining = remaining.Substring(currentWidth);
 
-            // We don't care about the success here; either it's updated or it stays the same.
             if (w.TryPop(out var newWidth))
                 currentWidth = newWidth;
         }
