@@ -2,21 +2,6 @@
 
 namespace Cassidoo;
 
-/*
-This week's question:
-You are given two sorted arrays, a and b, where a has a large enough size buffer at the end to 
-hold b (which can be spaces, zeroes, or nulls). Write a function to merge b into a in sorted order.
-
-Example:
-
-let a = [1, 3, 5, 0, 0, 0];
-let b = [2, 4, 6];
-
-> merge(a, b)
-> [1, 2, 3, 4, 5, 6]
-
- */
-
 [SuppressMessage("ReSharper", "InconsistentNaming")]
 public static class Cassidoo20251110_Merge
 {
@@ -25,9 +10,11 @@ public static class Cassidoo20251110_Merge
     public static char[] Merge(char[] a, char[] b)
     {
         var pt = FindEnd(a);
-        return pt + b.Length > a.Length
+        var newLen = pt + b.Length;
+        
+        return newLen > a.Length
             ? throw new ArgumentOutOfRangeException(nameof(b))
-            : Sort(Merge(a, b, pt), pt + b.Length);
+            : Sort(Merge(a, b, pt), newLen);
     }
 
     private static int FindEnd(char[] array, char?[]? options = null)
@@ -55,17 +42,17 @@ public static class Cassidoo20251110_Merge
     {
         end ??= -1;
 
+        // Grab the elements we actually care about and sort them
         var elements = array
             .Take(end ?? 0)
             .ToArray();
         Array.Sort(elements);
 
-        if (end >= 0 && end < array.Length)
-        {
-            var theEnd = array.TakeLast(array.Length - (end ?? 0)).ToArray();
-            return elements.Concat(theEnd).ToArray();
-        }
+        if (end < 0 || end >= array.Length)
+            return elements;
         
-        return elements;
+        // If there are 0/'0'/null/' ' characters at the end, put them back
+        var theEnd = array.TakeLast(array.Length - (end ?? 0)).ToArray();
+        return elements.Concat(theEnd).ToArray();
     }
 }

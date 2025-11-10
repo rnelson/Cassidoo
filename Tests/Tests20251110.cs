@@ -12,6 +12,8 @@ public class Tests20251110
     [InlineData(new[]{'1', '3', '0', '0', '0', '0'}, new[] {'6'}, new[]{'1', '3', '6', '0', '0', '0'})]
     [InlineData(new[]{'1', '3', '0', (char)0, '0', '0'}, new[] {'6'}, new[]{'1', '3', '6', (char)0, '0', '0'})]
     [InlineData(new[]{'1', '3', '0', '0', (char)0, '0'}, new[] {'6'}, new[]{'1', '3', '6', '0', (char)0, '0'})]
+    [InlineData(new[]{'1', (char)0, ' ', '0', (char)0, '0'}, new[] {'6'}, new[]{'1', '6', ' ', '0', (char)0, '0'})]
+    [InlineData(new[]{'1', '3', '0', ' ', (char)0, '0'}, new[] {'6'}, new[]{'1', '3', '6', ' ', (char)0, '0'})]
     public void Test(char[] a, char[] b, char[] expected)
     {
         var actual = Cassidoo20251110_Merge.Merge(a, b);
