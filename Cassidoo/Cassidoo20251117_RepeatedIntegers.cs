@@ -9,6 +9,12 @@ public static class Cassidoo20251117_RepeatedIntegers
     [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
     public static IEnumerable<int> RepeatedIntegers(int n)
     {
-        return [];
+        var result = new List<int>();
+
+        for (var i = 1; i <= n; i++)
+            for (var j = 0; j < i; j++)
+                result.Add(i);
+        
+        return result;
     }
 }
