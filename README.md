@@ -6,7 +6,7 @@
 I wanted to simplify participating in the weekly interview questions by having a single solution that's all set up for me to work from. This is that solution.
 
 ## Requirements
-+ .NET 8
++ .NET 10
 + `ksh` to run  ([oksh](https://github.com/ibara/oksh) recommended)
 
 ## Usage
