@@ -54,7 +54,7 @@ public static class Cassidoo20260330_ResolvePath
 
                 // Add this new path
                 var bits = _overEngineering[guid];
-                bits.Add(destination!);
+                bits.Add(destination);
                 _overEngineering[guid] = bits;
 
                 // If we have duplicate paths in `bits`, we're in a cycle and need to bail
@@ -66,12 +66,12 @@ public static class Cassidoo20260330_ResolvePath
                     return null;
                 }
 
-                path = destination!;
+                path = destination;
             }
         }
     }
 
-    public static Filesystem TestFilesystem { get; private set; }
+    public static Filesystem TestFilesystem { get; }
 
     static Cassidoo20260330_ResolvePath()
     {
