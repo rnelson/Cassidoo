@@ -38,34 +38,36 @@ public static class Cassidoo20260330_ResolvePath
 
         private string? Resolve(string originalPath, string path, Guid guid)
         {
-            if (!_paths.TryGetValue(path, out var destination))
+            while (true)
             {
-                _overEngineering.Remove(guid, out _);
-                throw new ArgumentException($"{originalPath} leads to {path}, which does not exist", nameof(path));
-            }
+                if (!_paths.TryGetValue(path, out var destination))
+                {
+                    _overEngineering.Remove(guid, out _);
+                    throw new ArgumentException($"{originalPath} leads to {path}, which does not exist", nameof(path));
+                }
 
-            if (destination is null)
-            {
-                _overEngineering.Remove(guid, out var pastBits);
-                return pastBits!.Last();
-            }
+                if (destination is null)
+                {
+                    _overEngineering.Remove(guid, out var pastBits);
+                    return pastBits!.Last();
+                }
 
-            // Add this new path
-            var bits = _overEngineering[guid];
-            bits.Add(destination!);
-            _overEngineering[guid] = bits;
+                // Add this new path
+                var bits = _overEngineering[guid];
+                bits.Add(destination!);
+                _overEngineering[guid] = bits;
 
-            // If we have duplicate paths in `bits`, we're in a cycle and need to bail
-            if (bits
-                .GroupBy(b => b)
-                .Where(g => g.Count() > 1)
-                .Any(g => g.Count() > 1))
-            {
-                _overEngineering.Remove(guid, out _);
-                return null;
+                // If we have duplicate paths in `bits`, we're in a cycle and need to bail
+                if (bits.GroupBy(b => b)
+                    .Where(g => g.Count() > 1)
+                    .Any(g => g.Count() > 1))
+                {
+                    _overEngineering.Remove(guid, out _);
+                    return null;
+                }
+
+                path = destination!;
             }
-            
-            return Resolve(originalPath, destination!, guid);
         }
     }
 
