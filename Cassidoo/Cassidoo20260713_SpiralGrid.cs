@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using Cassidoo.Collections;
 
 namespace Cassidoo;
 
@@ -11,35 +12,24 @@ public static class Cassidoo20260713_SpiralGrid
     public static string SpiralGrid(int n)
     {
         var dim = (uint)Math.Ceiling(Math.Sqrt(n + 1));
-        var grid = new Grid<int>(dim);
+        var grid = new SquareStringGrid(dim);
+
+        var location = (0, 0);
+        var direction = Direction.Right;
+
+        for (var i = 0; i <= n; i++)
+        {
+            if (location.Item1 > dim || location.Item2 > dim || grid[location.Item1, location.Item2] is not null)
+            {
+                direction = direction.CollisionChange;
+                location = (location.Item1 + direction!.XInc, location.Item2 + direction.YInc);
+            }
+            
+            grid[location.Item1, location.Item2] = i.ToString();
+            location = (location.Item1 + direction!.XInc, location.Item2 + direction.YInc);
+        }
 
         return grid.ToString();
-    }
-
-    private class Grid<T>(uint gridSize) where T : notnull
-    {
-        private readonly T[,] _grid = new T[gridSize, gridSize];
-
-        public T this[int x, int y]
-        {
-            get => _grid[x, y];
-            set => _grid[x, y] = value;
-        }
-
-        public override string ToString()
-        {
-            var largest = _grid
-                .Cast<T>()
-                .OrderByDescending(item => item.ToString().Length)
-                .First()
-                .ToString();
-            var size = largest.Length + 1;
-            
-            // easier to do INumber
-            // but might be worth Grid<T> and SquareGrid<T>:Grid<T> for future?
-            
-            return string.Empty;
-        }
     }
 
     private class DirectionalDetail(short xInc, short yInc, DirectionalDetail? collisionChange = null)
