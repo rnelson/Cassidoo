@@ -6,6 +6,7 @@ namespace Cassidoo;
 [SuppressMessage("ReSharper", "InconsistentNaming")]
 [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
 [SuppressMessage("ReSharper", "MemberCanBePrivate.Local")]
+[SuppressMessage("ReSharper", "InvertIf")]
 public static class Cassidoo20260713_SpiralGrid
 {
     // Tests: https://github.com/rnelson/Cassidoo/blob/main/Tests/Tests20260713.cs
@@ -29,7 +30,7 @@ public static class Cassidoo20260713_SpiralGrid
             
             // Continue along the path
             location = new {
-                Row = (uint) (location.Row + direction!.YInc),
+                Row = (uint) (location.Row + direction.YInc),
                 Col = (uint) (location.Col + direction.XInc)
             };
             
@@ -40,7 +41,7 @@ public static class Cassidoo20260713_SpiralGrid
                 grid[location.Row, location.Col] is not null)
             {
                 location = new {
-                    Row = (uint) (location.Row - direction!.YInc),
+                    Row = (uint) (location.Row - direction.YInc),
                     Col = (uint) (location.Col - direction.XInc)
                 };
                 
@@ -55,6 +56,7 @@ public static class Cassidoo20260713_SpiralGrid
         return grid.ToString();
     }
 
+    [SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Local")]
     private class DirectionalDetail(short xInc, short yInc, DirectionalDetail? collisionChange = null)
     {
         public short XInc { get; set; } = xInc;
@@ -62,7 +64,7 @@ public static class Cassidoo20260713_SpiralGrid
         public DirectionalDetail? CollisionChange { get; set; } = collisionChange;
     }
 
-    private class Direction
+    private static class Direction
     {
         public static readonly DirectionalDetail Right = new(1, 0);
         public static readonly DirectionalDetail Down = new(0, 1);
