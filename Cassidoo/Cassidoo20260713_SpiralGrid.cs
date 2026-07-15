@@ -19,27 +19,36 @@ public static class Cassidoo20260713_SpiralGrid
         var dim = (uint)Math.Ceiling(Math.Sqrt(n + 1));
         var grid = new SquareStringGrid(dim);
 
-        var location = (0, 0);
+        var location = new { Row = (uint)0, Col = (uint)0 };
         var direction = Direction.Right;
 
         for (var i = 0; i <= n; i++)
         {
             // Add the number to the grid
-            grid[location.Item1, location.Item2] = i.ToString();
+            grid[location.Row, location.Col] = i.ToString();
             
             // Continue along the path
-            location = (location.Item1 + direction!.XInc, location.Item2 + direction.YInc);
+            location = new {
+                Row = (uint) (location.Row + direction!.YInc),
+                Col = (uint) (location.Col + direction.XInc)
+            };
             
             // If we're out of bounds or the new location is already in use, undo that last move then change direction
-            if (location.Item1 >= dim ||
-                location.Item2 >= dim ||
-                !grid.ContainsPoint(location.Item1, location.Item2) ||
-                grid[location.Item1, location.Item2] is not null)
+            if (location.Row >= dim ||
+                location.Col >= dim ||
+                !grid.ContainsPoint(location.Row, location.Col) ||
+                grid[location.Row, location.Col] is not null)
             {
-                location = (location.Item1 - direction!.XInc, location.Item2 - direction.YInc);
+                location = new {
+                    Row = (uint) (location.Row - direction!.YInc),
+                    Col = (uint) (location.Col - direction.XInc)
+                };
                 
                 direction = direction.CollisionChange;
-                location = (location.Item1 + direction!.XInc, location.Item2 + direction.YInc);
+                location = new {
+                    Row = (uint) (location.Row + direction!.YInc),
+                    Col = (uint) (location.Col + direction.XInc)
+                };
             }
         }
 
