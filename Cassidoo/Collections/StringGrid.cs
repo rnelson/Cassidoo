@@ -16,33 +16,33 @@ public class StringGrid
         _columns = columns;
         _grid = new string[_rows * _columns];
         
-        for (uint row = 0; row < _rows; row++)
-        for (uint col = 0; col < _columns; col++)
+        for (var row = 0; row < _rows; row++)
+        for (var col = 0; col < _columns; col++)
             _grid[GetIndex(row, col)] = null;
     }
 
-    public string? this[uint row, uint col]
+    public string? this[int row, int col]
     {
         get => _grid[GetIndex(row, col)];
         set => _grid[GetIndex(row, col)] = value;
     }
     
-    public bool ContainsPoint(uint row, uint col) => row < _columns && col < _rows;
+    public bool ContainsPoint(int row, int col) => row < _columns && col < _rows;
 
     public override string ToString()
     {
         var largest = 0;
-        for (uint row = 0; row < _rows; row++)
-        for (uint col = 0; col < _columns; col++)
+        for (var row = 0; row < _rows; row++)
+        for (var col = 0; col < _columns; col++)
             if (_grid[GetIndex(row, col)] is not null && _grid[GetIndex(row, col)]?.Length > largest)
                 largest = _grid[GetIndex(row, col)]!.Length;
 
         var size = largest > 0 ? largest : 0;
         var sb = new StringBuilder();
 
-        for (uint row = 0; row < _rows; row++)
+        for (var row = 0; row < _rows; row++)
         {
-            for (uint col = 0; col < _columns; col++)
+            for (var col = 0; col < _columns; col++)
             {
                 if (_grid[GetIndex(row, col)] is not null)
                 {
@@ -65,7 +65,7 @@ public class StringGrid
     }
 
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
-    protected uint GetIndex(uint row, uint col) => row * _columns + col;
+    protected int GetIndex(int row, int col) => (int)(row * _columns + col);
 }
 
 public class SquareStringGrid(uint gridSize) : StringGrid(gridSize, gridSize)

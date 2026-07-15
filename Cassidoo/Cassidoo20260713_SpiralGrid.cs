@@ -20,36 +20,27 @@ public static class Cassidoo20260713_SpiralGrid
         var dim = (uint)Math.Ceiling(Math.Sqrt(n + 1));
         var grid = new SquareStringGrid(dim);
 
-        var location = new { Row = (uint)0, Col = (uint)0 };
+        var location = new { Row = 0, Col = 0 };
         var direction = Direction.Right;
 
         for (var i = 0; i <= n; i++)
         {
-            // Add the number to the grid
+            // Add the new value to the grid and set our next coordinates
             grid[location.Row, location.Col] = i.ToString();
+            location = new { Row = location.Row + direction.YInc, Col = location.Col + direction.XInc };
             
-            // Continue along the path
-            location = new {
-                Row = (uint) (location.Row + direction.YInc),
-                Col = (uint) (location.Col + direction.XInc)
-            };
-            
-            // If we're out of bounds or the new location is already in use, undo that last move then change direction
-            if (location.Row >= dim ||
-                location.Col >= dim ||
-                !grid.ContainsPoint(location.Row, location.Col) ||
+            // Check grid bounds and new location in use
+            if (!grid.ContainsPoint(location.Row, location.Col) ||
                 grid[location.Row, location.Col] is not null)
             {
-                location = new {
-                    Row = (uint) (location.Row - direction.YInc),
-                    Col = (uint) (location.Col - direction.XInc)
-                };
+                // Undo that last move
+                location = new { Row = location.Row - direction.YInc, Col = location.Col - direction.XInc };
                 
+                // Change direction, following the spiral
                 direction = direction.CollisionChange;
-                location = new {
-                    Row = (uint) (location.Row + direction!.YInc),
-                    Col = (uint) (location.Col + direction.XInc)
-                };
+                
+                // Make a new move in the right direction
+                location = new { Row = location.Row + direction!.YInc, Col = location.Col + direction.XInc };
             }
         }
 
