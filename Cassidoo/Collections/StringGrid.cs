@@ -3,6 +3,7 @@ using System.Text;
 
 namespace Cassidoo.Collections;
 
+[SuppressMessage("ReSharper", "MemberCanBeProtected.Global")]
 public class StringGrid
 {
     private readonly string?[] _grid;
