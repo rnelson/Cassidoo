@@ -36,7 +36,7 @@ public class StringGrid
             if (_grid[GetIndex(row, col)] is not null && _grid[GetIndex(row, col)]?.Length > largest)
                 largest = _grid[GetIndex(row, col)]!.Length;
 
-        var size = largest > 0 ? largest + 1 : 0;
+        var size = largest > 0 ? largest : 0;
         var sb = new StringBuilder();
 
         for (uint row = 0; row < _rows; row++)
@@ -48,6 +48,11 @@ public class StringGrid
                     sb.Append(_grid[GetIndex(row, col)]!.PadLeft(size));
 
                     if (col + 1 < _columns)
+                        sb.Append(' ');
+                }
+                else
+                {
+                    for (var i = 0; i < size + 1; i++)
                         sb.Append(' ');
                 }
             }
