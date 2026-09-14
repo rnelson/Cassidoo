@@ -8,22 +8,21 @@ public static class Cassidoo20260914_LongestSorted
     public static string LongestSorted(string s)
     {
         var words = s.Split(Punctuation);
-        var littleWords = words
+        var tuples = words
             .Select((w, i) => new
             {
                 Index = i,
                 Word = w.ToLower(),
-                Letters = w.ToCharArray(),
-                Ascii = w.ToCharArray().Select(c => (int)c).ToArray(),
-                SortedAscii = w.ToCharArray().Select(c => (int)c).Order().ToArray()
+                Ascii = w.ToLower().ToCharArray().Select(c => (int)c).ToArray(),
+                SortedAscii = w.ToLower().ToCharArray().Select(c => (int)c).Order().ToArray()
             })
-            .Where(p => p.Word.Trim().Length > 0);
-        var candidates = littleWords
-            .Where(c => Enumerable.SequenceEqual(c.Ascii, c.SortedAscii))
+            .Where(t =>
+                t.Word.Trim().Length > 0 &&
+                Enumerable.SequenceEqual(t.Ascii, t.SortedAscii))
             .ToArray();
 
-        return candidates.Length == 0
+        return tuples.Length == 0
             ? ""
-            : words[candidates.OrderByDescending(c => c.Word.Length).First().Index];
+            : words[tuples.OrderByDescending(t => t.Word.Length).First().Index];
     }
 }
