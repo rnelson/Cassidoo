@@ -9,8 +9,7 @@ public static class Cassidoo20260928_FirstFrost
 
         for (var i = 0; i < results.Length; i++)
         {
-            var today = temperatures[i];
-            var dropped = temperatures.Skip(i).FirstOrDefault(t => today - t >= drop);
+            var dropped = temperatures.Skip(i).FirstOrDefault(t => temperatures[i] - t >= drop);
             results[i] = dropped > 0
                 ? temperatures.Skip(i).ToArray().IndexOf(dropped)
                 : 0;
