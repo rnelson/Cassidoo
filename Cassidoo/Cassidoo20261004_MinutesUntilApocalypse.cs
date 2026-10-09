@@ -38,7 +38,7 @@ public static class Cassidoo20261004_MinutesUntilApocalypse
                     continue;
 
                 // Infect nearby humans, but set them to a temporary unused value.
-                foreach (var neighbor in GetNeighbors(x, y).Where(neighbor => bounds.IsInBounds(neighbor.Item1, neighbor.Item2) &&
+                foreach (var neighbor in GetNeighbors(x, y).Where(neighbor => bounds.IsInBounds(neighbor) &&
                                                                               neighborhood[neighbor.Item1][neighbor.Item2] == (int)CellCreatureType.Human))
                     neighborhood[neighbor.Item1][neighbor.Item2] = (int)CellCreatureType.InfectedHuman;
             }
@@ -75,7 +75,7 @@ public static class Cassidoo20261004_MinutesUntilApocalypse
     private static bool IsReachable(int[][] map, Bounds bounds, int x, int y)
     {
         return GetNeighbors(x, y)
-            .Where(neighbor => bounds.IsInBounds(neighbor.Item1, neighbor.Item2))
+            .Where(bounds.IsInBounds)
             .Any(neighbor => map[neighbor.Item1][neighbor.Item2] != (int)CellCreatureType.Empty);
     }
 
@@ -95,5 +95,7 @@ public static class Cassidoo20261004_MinutesUntilApocalypse
         public int MaxY { get; } = maxY;
 
         public bool IsInBounds(int x, int y) => x >= MinX && x <= MaxX && y >= MinY && y <= MaxY;
+        
+        public bool IsInBounds(Tuple<int, int> tuple) => IsInBounds(tuple.Item1, tuple.Item2);
     }
 }
