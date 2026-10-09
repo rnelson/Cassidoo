@@ -1,7 +1,9 @@
-﻿using Cassidoo.Extensions;
+﻿using System.Diagnostics.CodeAnalysis;
+using Cassidoo.Extensions;
 
 namespace Cassidoo;
 
+[SuppressMessage("ReSharper", "MemberCanBePrivate.Local")]
 public static class Cassidoo20261004_MinutesUntilApocalypse
 {
     private enum CellCreatureType
@@ -15,8 +17,8 @@ public static class Cassidoo20261004_MinutesUntilApocalypse
     // Tests: https://github.com/rnelson/Cassidoo/blob/main/Tests/Tests20261004.cs
     public static int MinutesUntilApocalypse(IEnumerable<IEnumerable<int>> map)
     {
-        var neighborhood = map.ToTwoDimensionalNumericArray();
-        var bounds = new Bounds(0, neighborhood.Length - 1, 0, neighborhood[0].Length - 1);
+        var hood = map.ToTwoDimensionalNumericArray();
+        var bounds = new Bounds(0, hood.Length - 1, 0, hood[0].Length - 1);
         var minute = 0;
         var humans = true;
         
@@ -24,7 +26,7 @@ public static class Cassidoo20261004_MinutesUntilApocalypse
         // will never be infected.
         for (var x = bounds.MinX; x <= bounds.MaxX; x++)
             for (var y = bounds.MinY; y <= bounds.MaxY; y++)
-                if (!IsReachable(neighborhood, bounds, x, y) && neighborhood[x][y] == (int)CellCreatureType.Human)
+                if (!IsReachable(hood, bounds, x, y) && hood[x][y] == (int)CellCreatureType.Human)
                     return -1;
         
         while (humans)
@@ -34,18 +36,18 @@ public static class Cassidoo20261004_MinutesUntilApocalypse
             for (var y = bounds.MinY; y <= bounds.MaxY; y++)
             {
                 // Skip over anything that isn't a zombie.
-                if (neighborhood[x][y] != (int)CellCreatureType.Zombie)
+                if (hood[x][y] != (int)CellCreatureType.Zombie)
                     continue;
 
                 // Infect nearby humans, but set them to a temporary unused value.
-                foreach (var neighbor in GetNeighbors(x, y).Where(neighbor => bounds.IsInBounds(neighbor) &&
-                                                                              neighborhood[neighbor.Item1][neighbor.Item2] == (int)CellCreatureType.Human))
-                    neighborhood[neighbor.Item1][neighbor.Item2] = (int)CellCreatureType.InfectedHuman;
+                foreach (var neighbor in GetNeighbors(x, y).Where(n => bounds.IsInBounds(n) &&
+                                                                       hood[n.Item1][n.Item2] == (int)CellCreatureType.Human))
+                    hood[neighbor.Item1][neighbor.Item2] = (int)CellCreatureType.InfectedHuman;
             }
             
             // Update those infected humans to zombies and check for uninfected humans.
-            Zombify(neighborhood, bounds);
-            humans = AreThereHumans(neighborhood, bounds);
+            Zombify(hood, bounds);
+            humans = AreThereHumans(hood, bounds);
 
             minute++;
         }
