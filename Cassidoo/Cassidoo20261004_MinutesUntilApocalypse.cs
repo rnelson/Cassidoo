@@ -4,98 +4,93 @@ namespace Cassidoo;
 
 public static class Cassidoo20261004_MinutesUntilApocalypse
 {
+    private record Bounds(int MinX, int MaxX, int MinY, int MaxY);
+
+    private enum CellCreatureType
+    {
+        Human = 1,
+        Zombie = 2,
+        InfectedHuman = 3
+    }
+    
     // Tests: https://github.com/rnelson/Cassidoo/blob/main/Tests/Tests20261004.cs
     public static int MinutesUntilApocalypse(IEnumerable<IEnumerable<int>> map)
     {
-        /*
-            On Halloween night, a town is represented by a grid where 0 is an
-            empty lot, 1 is a living person, and 2 is an infected zombie. Every
-            minute, infection spreads to any living person directly above, below,
-            left, or right of an infected zombie. Return the minimum number of
-            minutes until no living people remain, or -1 if some people can never
-            be reached.
-         */
-
         var neighborhood = map.ToTwoDimensionalNumericArray();
         var bounds = new Bounds(0, neighborhood.Length, 0, neighborhood[0].Length);
-        
-        // Check for the unreachables
-        for (var x = bounds.MinX; x < bounds.MaxX; x++)
-            for (var y = bounds.MinY; y < bounds.MaxY; y++)
-                if (!IsReachable(neighborhood, bounds, x, y))
-                    return -1;
-
         var minute = 0;
         var humans = true;
         
+        // Check for the unreachables. If a single cell has a moat of empty locations, that human
+        // will never be infected.
+        for (var x = bounds.MinX; x < bounds.MaxX; x++)
+            for (var y = bounds.MinY; y < bounds.MaxY; y++)
+                if (!IsReachable(neighborhood, bounds, x, y) && neighborhood[x][y] == (int)CellCreatureType.Human)
+                    return -1;
+        
         while (humans)
         {
-            // See if there are still humans around
-            humans = false;
-            for (var x = bounds.MinX; x < bounds.MaxX; x++)
-            for (var y = bounds.MinY; y < bounds.MaxY; y++)
-                if (!humans && neighborhood[x][y] == 1)
-                    humans = true;
-
+            // See if there are still humans around. No humans = done.
+            humans = AreThereHumans(neighborhood, bounds);
             if (!humans)
                 break;
             
+            // Sort out this minute's infections.
             for (var x = bounds.MinX; x < bounds.MaxX; x++)
             for (var y = bounds.MinY; y < bounds.MaxY; y++)
             {
-                // Skip over anything that isn't a zombie
-                if (neighborhood[x][y] != 2)
+                // Skip over anything that isn't a zombie.
+                if (neighborhood[x][y] != (int)CellCreatureType.Zombie)
                     continue;
-                
-                var neighbors = new List<Tuple<int, int>>
-                {
-                    new(x, y+1),
-                    new(x+1, y),
-                    new(x, y-1),
-                    new(x-1, y),
-                };
 
-                // Infect nearby humans, but set them to a new value
-                foreach (var neighbor in neighbors.Where(neighbor => neighbor.Item1 >= bounds.MinX &&
-                                                                     neighbor.Item1 < bounds.MaxX &&
-                                                                     neighbor.Item2 >= bounds.MinY &&
-                                                                     neighbor.Item2 < bounds.MaxY &&
-                                                                     neighborhood[neighbor.Item1][neighbor.Item2] == 1))
-                {
-                    neighborhood[neighbor.Item1][neighbor.Item2] = 3;
-                }
+                // Infect nearby humans, but set them to a temporary unused value.
+                foreach (var neighbor in GetNeighbors(x, y)
+                             .Where(neighbor => neighbor.Item1 >= bounds.MinX &&
+                                                neighbor.Item2 >= bounds.MinY &&
+                                                neighbor.Item2 < bounds.MaxY &&
+                                                neighborhood[neighbor.Item1][neighbor.Item2] == (int)CellCreatureType.Human))
+                    neighborhood[neighbor.Item1][neighbor.Item2] = (int)CellCreatureType.InfectedHuman;
             }
             
-            // Update those 3s to 2s -- we have to do it here so they don't instantly spread everywhere
+            // Update those infected humans to zombies.
             for (var x = bounds.MinX; x < bounds.MaxX; x++)
             for (var y = bounds.MinY; y < bounds.MaxY; y++)
-                if (neighborhood[x][y] == 3)
-                    neighborhood[x][y] = 2;
+                if (neighborhood[x][y] == (int)CellCreatureType.InfectedHuman)
+                    neighborhood[x][y] = (int)CellCreatureType.Zombie;
 
             minute++;
         }
         
         return minute;
     }
+
+    private static bool AreThereHumans(int[][] neighborhood, Bounds bounds)
+    {
+        var humans = false;
+        
+        for (int x = bounds.MinX, y = bounds.MinY; x < bounds.MaxX && y < bounds.MaxY; x++, y++)
+            if (!humans && neighborhood[x][y] == 1)
+                humans = true;
+
+        return humans;
+    }
+    
+    private static List<Tuple<int, int>> GetNeighbors(int x, int y) =>
+    [
+        new(x, y + 1),
+        new(x + 1, y),
+        new(x, y - 1),
+        new(x - 1, y)
+    ];
     
     private static bool IsReachable(int[][] map, Bounds bounds, int x, int y)
     {
-        var neighbors = new List<Tuple<int, int>>
-        {
-            new(x, y+1),
-            new(x+1, y),
-            new(x, y-1),
-            new(x-1, y),
-        };
-
-        return neighbors
+        return GetNeighbors(x, y)
             .Where(neighbor => 
                 neighbor.Item1 >= bounds.MinX &&
                 neighbor.Item1 < bounds.MaxX &&
                 neighbor.Item2 >= bounds.MinY &&
                 neighbor.Item2 < bounds.MaxY)
-            .Any(neighbor => map[neighbor.Item1][neighbor.Item2] != 0);
+            .Any(neighbor => map[neighbor.Item1][neighbor.Item2] != (int)CellCreatureType.Human);
     }
-    
-    private record Bounds(int MinX, int MaxX, int MinY, int MaxY);
 }
