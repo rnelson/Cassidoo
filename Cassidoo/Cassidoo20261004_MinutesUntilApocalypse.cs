@@ -1,6 +1,4 @@
-﻿using CsvHelper.Configuration.Attributes;
-
-namespace Cassidoo;
+﻿namespace Cassidoo;
 
 public static class Cassidoo20261004_MinutesUntilApocalypse
 {
