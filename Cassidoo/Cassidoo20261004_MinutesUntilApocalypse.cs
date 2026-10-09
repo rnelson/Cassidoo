@@ -8,6 +8,7 @@ public static class Cassidoo20261004_MinutesUntilApocalypse
 
     private enum CellCreatureType
     {
+        Empty = 0,
         Human = 1,
         Zombie = 2,
         InfectedHuman = 3
@@ -17,14 +18,14 @@ public static class Cassidoo20261004_MinutesUntilApocalypse
     public static int MinutesUntilApocalypse(IEnumerable<IEnumerable<int>> map)
     {
         var neighborhood = map.ToTwoDimensionalNumericArray();
-        var bounds = new Bounds(0, neighborhood.Length, 0, neighborhood[0].Length);
+        var bounds = new Bounds(0, neighborhood.Length - 1, 0, neighborhood[0].Length - 1);
         var minute = 0;
         var humans = true;
         
         // Check for the unreachables. If a single cell has a moat of empty locations, that human
         // will never be infected.
-        for (var x = bounds.MinX; x < bounds.MaxX; x++)
-            for (var y = bounds.MinY; y < bounds.MaxY; y++)
+        for (var x = bounds.MinX; x <= bounds.MaxX; x++)
+            for (var y = bounds.MinY; y <= bounds.MaxY; y++)
                 if (!IsReachable(neighborhood, bounds, x, y) && neighborhood[x][y] == (int)CellCreatureType.Human)
                     return -1;
         
@@ -36,25 +37,25 @@ public static class Cassidoo20261004_MinutesUntilApocalypse
                 break;
             
             // Sort out this minute's infections.
-            for (var x = bounds.MinX; x < bounds.MaxX; x++)
-            for (var y = bounds.MinY; y < bounds.MaxY; y++)
+            for (var x = bounds.MinX; x <= bounds.MaxX; x++)
+            for (var y = bounds.MinY; y <= bounds.MaxY; y++)
             {
                 // Skip over anything that isn't a zombie.
                 if (neighborhood[x][y] != (int)CellCreatureType.Zombie)
                     continue;
 
                 // Infect nearby humans, but set them to a temporary unused value.
-                foreach (var neighbor in GetNeighbors(x, y)
-                             .Where(neighbor => neighbor.Item1 >= bounds.MinX &&
-                                                neighbor.Item2 >= bounds.MinY &&
-                                                neighbor.Item2 < bounds.MaxY &&
-                                                neighborhood[neighbor.Item1][neighbor.Item2] == (int)CellCreatureType.Human))
+                foreach (var neighbor in GetNeighbors(x, y).Where(neighbor => neighbor.Item1 >= bounds.MinX &&
+                                                                              neighbor.Item2 >= bounds.MinY &&
+                                                                              neighbor.Item1 <= bounds.MaxX &&
+                                                                              neighbor.Item2 <= bounds.MaxY &&
+                                                                              neighborhood[neighbor.Item1][neighbor.Item2] == (int)CellCreatureType.Human))
                     neighborhood[neighbor.Item1][neighbor.Item2] = (int)CellCreatureType.InfectedHuman;
             }
             
             // Update those infected humans to zombies.
-            for (var x = bounds.MinX; x < bounds.MaxX; x++)
-            for (var y = bounds.MinY; y < bounds.MaxY; y++)
+            for (var x = bounds.MinX; x <= bounds.MaxX; x++)
+            for (var y = bounds.MinY; y <= bounds.MaxY; y++)
                 if (neighborhood[x][y] == (int)CellCreatureType.InfectedHuman)
                     neighborhood[x][y] = (int)CellCreatureType.Zombie;
 
@@ -68,8 +69,8 @@ public static class Cassidoo20261004_MinutesUntilApocalypse
     {
         var humans = false;
         
-        for (int x = bounds.MinX, y = bounds.MinY; x < bounds.MaxX && y < bounds.MaxY; x++, y++)
-            if (!humans && neighborhood[x][y] == 1)
+        for (int x = bounds.MinX, y = bounds.MinY; x <= bounds.MaxX && y <= bounds.MaxY; x++, y++)
+            if (!humans && neighborhood[x][y] == (int)CellCreatureType.Human)
                 humans = true;
 
         return humans;
@@ -88,9 +89,9 @@ public static class Cassidoo20261004_MinutesUntilApocalypse
         return GetNeighbors(x, y)
             .Where(neighbor => 
                 neighbor.Item1 >= bounds.MinX &&
-                neighbor.Item1 < bounds.MaxX &&
+                neighbor.Item1 <= bounds.MaxX &&
                 neighbor.Item2 >= bounds.MinY &&
-                neighbor.Item2 < bounds.MaxY)
-            .Any(neighbor => map[neighbor.Item1][neighbor.Item2] != (int)CellCreatureType.Human);
+                neighbor.Item2 <= bounds.MaxY)
+            .Any(neighbor => map[neighbor.Item1][neighbor.Item2] != (int)CellCreatureType.Empty);
     }
 }
