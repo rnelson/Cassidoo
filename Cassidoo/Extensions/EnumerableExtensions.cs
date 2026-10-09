@@ -76,6 +76,20 @@ internal static class EnumerableExtensions
             }
         }
     }
+
+    public static T[] ToOneDimensionalNumericArray<T>(this IEnumerable<T> enumerable) where T : INumber<T> =>
+        [.. enumerable];
+    
+    public static T[][] ToTwoDimensionalNumericArray<T>(this IEnumerable<IEnumerable<T>> map) where T : INumber<T>
+    {
+        var mapArray = map.ToArray();
+        var neighborhood = new T[mapArray.Length][];
+        
+        for (var i = 0; i < mapArray.Length; i++)
+            neighborhood[i] = [.. mapArray[i]];
+        
+        return neighborhood;
+    }
     
     private static BigInteger Sum(this IEnumerable<BigInteger> source)
     {

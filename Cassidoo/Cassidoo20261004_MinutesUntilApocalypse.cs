@@ -1,4 +1,6 @@
-﻿namespace Cassidoo;
+﻿using Cassidoo.Extensions;
+
+namespace Cassidoo;
 
 public static class Cassidoo20261004_MinutesUntilApocalypse
 {
@@ -13,8 +15,8 @@ public static class Cassidoo20261004_MinutesUntilApocalypse
             minutes until no living people remain, or -1 if some people can never
             be reached.
          */
-        
-        var neighborhood = EnumerableToIntArray(map);
+
+        var neighborhood = map.ToTwoDimensionalNumericArray();
         var bounds = new Bounds(0, neighborhood.Length, 0, neighborhood[0].Length);
         
         // Check for the unreachables
@@ -74,17 +76,6 @@ public static class Cassidoo20261004_MinutesUntilApocalypse
         }
         
         return minute;
-    }
-
-    private static int[][] EnumerableToIntArray(IEnumerable<IEnumerable<int>> map)
-    {
-        var mapArray = map.ToArray();
-        var neighborhood = new int[mapArray.Length][];
-        
-        for (var i = 0; i < mapArray.Length; i++)
-            neighborhood[i] = [.. mapArray[i]];
-        
-        return neighborhood;
     }
     
     private static bool IsReachable(int[][] map, Bounds bounds, int x, int y)
