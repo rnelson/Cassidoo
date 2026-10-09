@@ -32,8 +32,11 @@ public static class Cassidoo20261004_MinutesUntilApocalypse
             humans = false;
             for (var x = bounds.MinX; x < bounds.MaxX; x++)
             for (var y = bounds.MinY; y < bounds.MaxY; y++)
-                if (!humans && IsHuman(neighborhood, bounds, x, y))
+                if (!humans && neighborhood[x][y] == 1)
                     humans = true;
+
+            if (!humans)
+                break;
             
             for (var x = bounds.MinX; x < bounds.MaxX; x++)
             for (var y = bounds.MinY; y < bounds.MaxY; y++)

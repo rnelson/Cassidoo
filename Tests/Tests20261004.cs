@@ -6,7 +6,7 @@ namespace Tests;
 [SuppressMessage("Usage", "CA2211:Non-constant fields should not be visible")]
 public class Tests20261004
 {
-    //[Theory]
+    [Theory]
     [MemberData(nameof(TestData))]
     public void Test(int expected, IEnumerable<IEnumerable<int>> map)
     {
