@@ -31,11 +31,6 @@ public static class Cassidoo20261004_MinutesUntilApocalypse
         
         while (humans)
         {
-            // See if there are still humans around. No humans = done.
-            humans = AreThereHumans(neighborhood, bounds);
-            if (!humans)
-                break;
-            
             // Sort out this minute's infections.
             for (var x = bounds.MinX; x <= bounds.MaxX; x++)
             for (var y = bounds.MinY; y <= bounds.MaxY; y++)
@@ -53,11 +48,9 @@ public static class Cassidoo20261004_MinutesUntilApocalypse
                     neighborhood[neighbor.Item1][neighbor.Item2] = (int)CellCreatureType.InfectedHuman;
             }
             
-            // Update those infected humans to zombies.
-            for (var x = bounds.MinX; x <= bounds.MaxX; x++)
-            for (var y = bounds.MinY; y <= bounds.MaxY; y++)
-                if (neighborhood[x][y] == (int)CellCreatureType.InfectedHuman)
-                    neighborhood[x][y] = (int)CellCreatureType.Zombie;
+            // Update those infected humans to zombies and check for uninfected humans.
+            Zombify(neighborhood, bounds);
+            humans = AreThereHumans(neighborhood, bounds);
 
             minute++;
         }
@@ -93,5 +86,13 @@ public static class Cassidoo20261004_MinutesUntilApocalypse
                 neighbor.Item2 >= bounds.MinY &&
                 neighbor.Item2 <= bounds.MaxY)
             .Any(neighbor => map[neighbor.Item1][neighbor.Item2] != (int)CellCreatureType.Empty);
+    }
+
+    private static void Zombify(int[][] neighborhood, Bounds bounds)
+    {
+        for (var x = bounds.MinX; x <= bounds.MaxX; x++)
+        for (var y = bounds.MinY; y <= bounds.MaxY; y++)
+            if (neighborhood[x][y] == (int)CellCreatureType.InfectedHuman)
+                neighborhood[x][y] = (int)CellCreatureType.Zombie;
     }
 }
