@@ -86,14 +86,8 @@ public static class Cassidoo20261004_MinutesUntilApocalypse
         
         return neighborhood;
     }
-
-    private static bool IsReachable(int[][] map, Bounds bounds, int x, int y) =>
-        CheckNeighbors(map, bounds, x, y, 0);
     
-    private static bool IsHuman(int[][] map, Bounds bounds, int x, int y) =>
-        CheckNeighbors(map, bounds, x, y, 1);
-    
-    private static bool CheckNeighbors(int[][] map, Bounds bounds, int x, int y, int check)
+    private static bool IsReachable(int[][] map, Bounds bounds, int x, int y)
     {
         var neighbors = new List<Tuple<int, int>>
         {
@@ -109,7 +103,7 @@ public static class Cassidoo20261004_MinutesUntilApocalypse
                 neighbor.Item1 < bounds.MaxX &&
                 neighbor.Item2 >= bounds.MinY &&
                 neighbor.Item2 < bounds.MaxY)
-            .Any(neighbor => map[neighbor.Item1][neighbor.Item2] != check);
+            .Any(neighbor => map[neighbor.Item1][neighbor.Item2] != 0);
     }
     
     private record Bounds(int MinX, int MaxX, int MinY, int MaxY);
