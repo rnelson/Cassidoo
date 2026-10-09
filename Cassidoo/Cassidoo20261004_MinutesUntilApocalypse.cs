@@ -4,8 +4,6 @@ namespace Cassidoo;
 
 public static class Cassidoo20261004_MinutesUntilApocalypse
 {
-    private record Bounds(int MinX, int MaxX, int MinY, int MaxY);
-
     private enum CellCreatureType
     {
         Empty = 0,
@@ -40,10 +38,7 @@ public static class Cassidoo20261004_MinutesUntilApocalypse
                     continue;
 
                 // Infect nearby humans, but set them to a temporary unused value.
-                foreach (var neighbor in GetNeighbors(x, y).Where(neighbor => neighbor.Item1 >= bounds.MinX &&
-                                                                              neighbor.Item2 >= bounds.MinY &&
-                                                                              neighbor.Item1 <= bounds.MaxX &&
-                                                                              neighbor.Item2 <= bounds.MaxY &&
+                foreach (var neighbor in GetNeighbors(x, y).Where(neighbor => bounds.IsInBounds(neighbor.Item1, neighbor.Item2) &&
                                                                               neighborhood[neighbor.Item1][neighbor.Item2] == (int)CellCreatureType.Human))
                     neighborhood[neighbor.Item1][neighbor.Item2] = (int)CellCreatureType.InfectedHuman;
             }
@@ -80,11 +75,7 @@ public static class Cassidoo20261004_MinutesUntilApocalypse
     private static bool IsReachable(int[][] map, Bounds bounds, int x, int y)
     {
         return GetNeighbors(x, y)
-            .Where(neighbor => 
-                neighbor.Item1 >= bounds.MinX &&
-                neighbor.Item1 <= bounds.MaxX &&
-                neighbor.Item2 >= bounds.MinY &&
-                neighbor.Item2 <= bounds.MaxY)
+            .Where(neighbor => bounds.IsInBounds(neighbor.Item1, neighbor.Item2))
             .Any(neighbor => map[neighbor.Item1][neighbor.Item2] != (int)CellCreatureType.Empty);
     }
 
@@ -94,5 +85,15 @@ public static class Cassidoo20261004_MinutesUntilApocalypse
         for (var y = bounds.MinY; y <= bounds.MaxY; y++)
             if (neighborhood[x][y] == (int)CellCreatureType.InfectedHuman)
                 neighborhood[x][y] = (int)CellCreatureType.Zombie;
+    }
+
+    private class Bounds(int minX, int maxX, int minY, int maxY)
+    {
+        public int MinX { get; } = minX;
+        public int MaxX { get; } = maxX;
+        public int MinY { get; } = minY;
+        public int MaxY { get; } = maxY;
+
+        public bool IsInBounds(int x, int y) => x >= MinX && x <= MaxX && y >= MinY && y <= MaxY;
     }
 }
