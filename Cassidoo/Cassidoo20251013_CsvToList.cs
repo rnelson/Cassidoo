@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using CsvHelper;
-using CsvHelper.Configuration;
 using JetBrains.Annotations;
 
 namespace Cassidoo;
@@ -13,29 +12,32 @@ public static class Cassidoo20251013_CsvToList
     [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
     public static IEnumerable<string> CsvToList(string input)
     {
-        var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+        var options = new CsvReaderOptions 
         {
-            PrepareHeaderForMatch = args => args.Header.ToLower()
+            NormalizeHeaderName = s => s.ToLower(CultureInfo.InvariantCulture)
         };
 
         var reader = new StringReader(input.Replace("\\n", Environment.NewLine));
-        using var csv = new CsvReader(reader, config);
+        using var csv = CsvReader.Create(reader, options);
         return csv
-            .GetRecords<Entry>()
+            .GetRecords<Entry20251013>()
             .ToList()
             .Select(e => e.ToString());
     }
+}
 
-    [UsedImplicitly]
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Local")]
-    [SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Local")]
-    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
-    private class Entry
-    {
-        public string Name { get; init; } = string.Empty;
-        public int Age { get; init; }
-        public string City { get; init; } = string.Empty;
+[UsedImplicitly]
+[CsvRecord]
+[SuppressMessage("ReSharper", "MemberCanBePrivate.Local")]
+[SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Local")]
+[SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
+[SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+[SuppressMessage("CsvHelper", "CSVH001:CSV record types must be partial")]
+public partial class Entry20251013
+{
+    public string Name { get; init; } = string.Empty;
+    public int Age { get; init; }
+    public string City { get; init; } = string.Empty;
 
-        public override string ToString() => $"{Name}, age {Age}, from {City}";
-    }
+    public override string ToString() => $"{Name}, age {Age}, from {City}";
 }
